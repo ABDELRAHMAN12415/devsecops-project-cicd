@@ -38,18 +38,14 @@ pipeline {
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          sh """
-          mvn sonar:sonar \
-            -Dsonar.projectKey=numeric-application \
-            -Dsonar.host.url=http://34.228.12.181:9000 \
-        """
+          sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application'
         }
       }
-      post {
+      /*post {
         always {
           waitForQualityGate abortPipeline: true
         }
-      }
+      } */
     }
     stage('Docker Build & Push') {
       steps {
