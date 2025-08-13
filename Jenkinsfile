@@ -3,12 +3,12 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn compile -DskipTests=true'
+        sh 'mvn cleancompile -DskipTests=true'
       }
     }
     stage('Unit Tests - JUnit & JaCoCo') {
       steps {
-        sh 'mvn clean test'
+        sh 'mvn package'
         sh 'mvn jacoco:report'
         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       }
