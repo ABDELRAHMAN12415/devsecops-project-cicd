@@ -12,6 +12,18 @@ pipeline {
         sh 'mvn jacoco:report'
         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       }
+      post {
+        always {
+          junit '**/target/surefire-reports/*.xml'
+          jacoco(
+            execPattern: '**/target/jacoco.exec',
+            classPattern: '**/target/classes',
+            sourcePattern: '**/src/main/java',
+            inclusionPattern: '**/*.class',
+            exclusionPattern: ''
+          )
+        }
+      }
     }
     stage('Mutation Tests - PIT') {
       steps {
