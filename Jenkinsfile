@@ -3,13 +3,14 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn build -DskipTests'
+        sh 'mvn compile -DskipTests=true'
       }
     }
     stage('Unit Tests - JUnit & JaCoCo') {
       steps {
-        sh 'mvn clean package -DskipTests=true'
-        archive 'target/*.jar'
+        sh 'mvn clean test'
+        sh 'mvn jacoco:report'
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       }
     }
     stage('Mutation Tests - PIT') {
