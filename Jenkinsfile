@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn cleancompile -DskipTests=true'
+        sh 'mvn clean compile -DskipTests=true'
       }
     }
     stage('Unit Tests - JUnit & JaCoCo') {
