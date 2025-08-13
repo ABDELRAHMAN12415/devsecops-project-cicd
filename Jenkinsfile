@@ -30,10 +30,10 @@ pipeline {
         }
       }
     }
-    stage('Kubernetes Deployment - DEV') {
+    /*stage('Kubernetes Deployment - DEV') {
       steps {
         // Deployment steps
       }
-    }
+    } */
   }
 }
