@@ -1,17 +1,7 @@
 pipeline {
-  agent {
-        docker {
-            image 'maven:3.8.7-openjdk-17'
-            args '-v /root/.m2:/root/.m2'
-        }
-  }
+  agent any
 
   stages {
-    stage('Checkout1') {
-      steps {
-        git branch: 'main', url: 'https://github.com/ABDELRAHMAN12415/devsecops-project-cicd'
-      }
-    }
     stage('build') {
       steps {
         sh 'mvn clean package -DskipTests=true'
