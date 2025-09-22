@@ -5,7 +5,7 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
   }
-  
+}
   stages {
     stage('Setup') {
       steps {
@@ -19,12 +19,12 @@ pipeline {
     }
     stage('build') {
       steps {
-        sh 'mvn clean compile -DskipTests=true'
+        sh 'mvn clean package -DskipTests=true'
       }
     }
     stage('Unit Tests - JUnit & JaCoCo') {
       steps {
-        sh 'mvn package'
+        sh 'mvn test'
         sh 'mvn jacoco:report'
         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       }
