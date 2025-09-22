@@ -41,12 +41,13 @@ pipeline {
           sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application'
         }
       }
-      /*post {
+      post {
         always {
           waitForQualityGate abortPipeline: true
         }
-      } */
+      } 
     }
+
     stage('Docker Build & Push') {
       steps {
         withDockerRegistry([credentialsId: 'docker', url: '']) {
