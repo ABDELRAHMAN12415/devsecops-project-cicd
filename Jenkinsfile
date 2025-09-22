@@ -7,6 +7,7 @@ pipeline {
         sh 'mvn clean package -DskipTests=true'
       }
     }
+
     stage('Unit Tests - JUnit & JaCoCo') {
       steps {
         sh 'mvn test'
