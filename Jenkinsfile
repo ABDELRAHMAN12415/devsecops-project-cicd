@@ -26,6 +26,16 @@ pipeline {
         }
       }
     }
+    stage('dependency-check owasp-scan') {
+      steps {
+        sh 'mvn org.owasp:dependency-check-maven:check'
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml', failedTotalCritical: 1, failedTotalHigh: 1  
+        }
+      }
+    }
     stage('Mutation Tests - PIT') {
       steps {
         sh 'mvn org.pitest:pitest-maven:mutationCoverage'
