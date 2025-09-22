@@ -5,14 +5,9 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
   }
-}
+
   stages {
-    stage('Setup') {
-      steps {
-        sh 'apt-get update && apt-get install -y git'
-      }
-    }
-    stage('Checkout') {
+    stage('Checkout1') {
       steps {
         git branch: 'main', url: 'https://github.com/ABDELRAHMAN12415/devsecops-project-cicd'
       }
