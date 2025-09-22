@@ -5,7 +5,13 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
   }
+  
   stages {
+    stage('Checkout') {
+      steps {
+           git branch: 'main', url: 'https://github.com/ABDELRAHMAN12415/devsecops-project-cicd'
+      }
+    }
     stage('build') {
       steps {
         sh 'mvn clean compile -DskipTests=true'
