@@ -7,9 +7,14 @@ pipeline {
   }
   
   stages {
+    stage('Setup') {
+      steps {
+        sh 'apt-get update && apt-get install -y git'
+      }
+    }
     stage('Checkout') {
       steps {
-           git branch: 'main', url: 'https://github.com/ABDELRAHMAN12415/devsecops-project-cicd'
+        git branch: 'main', url: 'https://github.com/ABDELRAHMAN12415/devsecops-project-cicd'
       }
     }
     stage('build') {
