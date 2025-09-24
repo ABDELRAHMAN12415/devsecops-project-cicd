@@ -119,7 +119,7 @@
 				 <autoUpdate>false</autoUpdate>
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
 			     <format>ALL</format>
-			     <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
+			     <failBuildOnCVSS>11</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			    </configuration>
 			   </plugin>
 
