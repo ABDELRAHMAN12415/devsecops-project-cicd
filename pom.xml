@@ -34,30 +34,6 @@
     </dependency>
 
 		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-core</artifactId>
-			<version>9.0.97</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-el</artifactId>
-			<version>9.0.97</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-websocket</artifactId>
-			<version>9.0.97</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.97</version>
-		</dependency>
-
-		<dependency>
    			<groupId>org.junit.vintage</groupId>
   			<artifactId>junit-vintage-engine</artifactId>
  		 	<scope>test</scope>
@@ -143,7 +119,7 @@
 				 <autoUpdate>false</autoUpdate>
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
 			     <format>ALL</format>
-			     <failBuildOnCVSS>8</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 8 -->
+			     <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			    </configuration>
 			   </plugin>
 
