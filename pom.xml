@@ -120,6 +120,7 @@
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
 				 <analyzers>
 					<ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
+					<sonatypeOSSIndexAnalyzerEnabled>false</sonatypeOSSIndexAnalyzerEnabled>
 					<dependencyCheckAnalyzerEnabled>true</dependencyCheckAnalyzerEnabled>
 					<centralAnalyzerEnabled>true</centralAnalyzerEnabled> <!-- keep NVD only -->
 				 </analyzers>
