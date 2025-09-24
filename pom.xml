@@ -121,6 +121,7 @@
 				 <analyzers>
 					<ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
 					<dependencyCheckAnalyzerEnabled>true</dependencyCheckAnalyzerEnabled>
+					<centralAnalyzerEnabled>true</centralAnalyzerEnabled> <!-- keep NVD only -->
 				 </analyzers>
 			     <format>ALL</format>
 			     <failBuildOnCVSS>11</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
