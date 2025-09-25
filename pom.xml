@@ -118,7 +118,6 @@
 				 <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			     <format>ALL</format>
 				 <ossIndexWarnOnlyOnRemoteErrors>true</ossIndexWarnOnlyOnRemoteErrors>
-				 <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
 			    </configuration>
 			   </plugin>
 
