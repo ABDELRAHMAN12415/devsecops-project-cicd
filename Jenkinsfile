@@ -66,7 +66,7 @@ pipeline {
 
     stage('Docker Build & Push') {
       steps {
-        withDockerRegistry([credentialsId: 'docker', url: '']) {
+        withDockerRegistry([credentialsId: 'docker-cred']) {
           sh 'docker build -t abdelrahmanvio/numeric-application:"$GIT_COMMIT" .'
           sh 'docker push abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
         }
