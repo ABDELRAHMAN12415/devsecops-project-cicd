@@ -29,9 +29,10 @@ pipeline {
     }
     stage('dependency-check owasp-scan') {
       steps {
-        sh 'mvn org.owasp:dependency-check-maven:check \
-  -Danalyzer.ossIndex.enabled=false \
-  -Danalyzer.sonatypeOSSIndex.enabled=false'
+        sh 'mvn -Djava.io.tmpdir=/opt/dependency-check-data/tmp \
+        org.owasp:dependency-check-maven:check \
+        -Danalyzer.ossIndex.enabled=false \
+        -Danalyzer.sonatypeOSSIndex.enabled=false'
       }
       post {
         always {
