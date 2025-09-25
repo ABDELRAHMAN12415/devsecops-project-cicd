@@ -125,7 +125,7 @@
 			     <format>ALL</format>
 				 <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
 				 <sonatypeOSSIndexAnalyzerEnabled>false</sonatypeOSSIndexAnalyzerEnabled>
-			     <failBuildOnCVSS>11</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
+			     <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			    </configuration>
 			   </plugin>
 
