@@ -112,10 +112,7 @@
 			    <artifactId>dependency-check-maven</artifactId>
 			    <version>10.0.4</version>
 			    <configuration>
-				 <!-- set a custom temp directory -->
-				 <systemProperties>
-				   <java.io.tmpdir>/opt/dependency-check-data/tmp</java.io.tmpdir>
-			     </systemProperties>
+				 <java.io.tmpdir>/opt/dependency-check-data/tmp</java.io.tmpdir><!-- set a custom temp directory -->
 				 <autoUpdate>false</autoUpdate>
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
 				 <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
