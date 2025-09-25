@@ -118,13 +118,13 @@
 			     </systemProperties>
 				 <autoUpdate>false</autoUpdate>
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
+				 <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			     <format>ALL</format>
-				 <ossIndexEnabled>false</ossIndexEnabled>
+				 <!--ossIndexEnabled>false</ossIndexEnabled>
 				 <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
 				 <sonatypeOSSIndexAnalyzerEnabled>false</sonatypeOSSIndexAnalyzerEnabled>
-			     <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 				 <ossindexUsername>abdelrahman.aa.aa68@gmail.com</ossindexUsername>
-        		<ossindexApiToken>c1a8d452eaf304a7b936ff49a9c8e67fbc9f94be</ossindexApiToken>
+        		<ossindexApiToken>c1a8d452eaf304a7b936ff49a9c8e67fbc9f94be</ossindexApiToken-->
 			    </configuration>
 			   </plugin>
 
