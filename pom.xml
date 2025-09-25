@@ -116,6 +116,7 @@
 			    <artifactId>dependency-check-maven</artifactId>
 			    <version>10.0.4</version>
 			    <configuration>
+				 <autoUpdate>false</autoUpdate>
 				 <dataDirectory>/opt/dependency-check-data</dataDirectory>
 				 <analyzers>
 					<ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
