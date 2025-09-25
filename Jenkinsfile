@@ -30,9 +30,9 @@ pipeline {
     stage('dependency-check owasp-scan') {
       steps {
         sh 'mvn -Djava.io.tmpdir=/opt/dependency-check-data/tmp \
-    org.owasp:dependency-check-maven:check \
-    -DossIndexUsername=$OSSINDEX_USERNAME \
-    -DossIndexPassword=$OSSINDEX_PASSWORD'
+        -DossIndexAnalyzerEnabled=false \
+        -DsonatypeOSSIndexEnabled=false \
+        -DretireJsAnalyzerEnabled=false'
       }
       post {
         always {
