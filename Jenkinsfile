@@ -53,9 +53,9 @@ pipeline {
         withSonarQubeEnv('SonarQube') {
           sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application'
         }
-      }
-      timeout(time: 2, unit: 'MINUTES') {
+        timeout(time: 2, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
+        }
       }
     }
     stage('Docker Build & Push') {
