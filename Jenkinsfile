@@ -54,12 +54,9 @@ pipeline {
           sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application'
         }
       }
-      post {
-        always {
+      timeout(time: 2, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
-        }
-      } 
-    }
+      }
 
     stage('Docker Build & Push') {
       steps {
