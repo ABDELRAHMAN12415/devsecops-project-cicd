@@ -57,7 +57,7 @@ pipeline {
       timeout(time: 2, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
       }
-
+    }
     stage('Docker Build & Push') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred']) {
