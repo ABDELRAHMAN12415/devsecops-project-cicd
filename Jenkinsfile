@@ -12,7 +12,7 @@ pipeline {
       steps {
         sh 'mvn test'
         sh 'mvn jacoco:report'
-        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+        
       }
       post {
         always {
@@ -61,7 +61,8 @@ pipeline {
 
     stage('package') {
       steps {
-        sh 'mvn clean package -DskipTests=true'
+        sh 'mvn package -DskipTests=true'
+        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
       }
     }
 
