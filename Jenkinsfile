@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn clean build -DskipTests=true'
+        sh 'mvn clean compile -DskipTests=true'
       }
     }
 
@@ -27,7 +27,6 @@ pipeline {
         }
       }
     }
-
     stage('dependency-check owasp-scan') {
       steps {
         sh 'mvn -Djava.io.tmpdir=/opt/dependency-check-data/tmp \
@@ -39,7 +38,6 @@ pipeline {
         }
       }
     }
-
     stage('Mutation Tests - PIT') {
       steps {
         sh 'mvn org.pitest:pitest-maven:mutationCoverage'
@@ -50,7 +48,6 @@ pipeline {
         }
       }
     }
-
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('SonarQube') {
@@ -68,7 +65,6 @@ pipeline {
       }
     }
 
-
     stage('Docker Build') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
@@ -76,7 +72,6 @@ pipeline {
         }
       }
     }
-
 
     stage('Docker push') {
       steps {
