@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn clean package -DskipTests=true'
+        sh 'mvn clean build -DskipTests=true'
       }
     }
 
@@ -27,6 +27,7 @@ pipeline {
         }
       }
     }
+
     stage('dependency-check owasp-scan') {
       steps {
         sh 'mvn -Djava.io.tmpdir=/opt/dependency-check-data/tmp \
@@ -38,6 +39,7 @@ pipeline {
         }
       }
     }
+
     stage('Mutation Tests - PIT') {
       steps {
         sh 'mvn org.pitest:pitest-maven:mutationCoverage'
@@ -48,6 +50,7 @@ pipeline {
         }
       }
     }
+
     stage('Code Quality - SonarQube') {
       steps {
         withSonarQubeEnv('SonarQube') {
@@ -58,14 +61,31 @@ pipeline {
         }
       }
     }
-    stage('Docker Build & Push') {
+
+    stage('package') {
+      steps {
+        sh 'mvn clean package -DskipTests=true'
+      }
+    }
+
+
+    stage('Docker Build') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
           sh 'docker build -t abdelrahmanvio/numeric-application:"$GIT_COMMIT" .'
+        }
+      }
+    }
+
+
+    stage('Docker push') {
+      steps {
+        withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
           sh 'docker push abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
         }
       }
     }
+    
     stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
