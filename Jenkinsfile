@@ -88,7 +88,7 @@ pipeline {
       }
     }
     
-    stage('Kubernetes Deployment - DEV') {
+    /*stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
           sh 'sed -i "s#replace#abdelrahmanvio/numeric-application:${GIT_COMMIT}#g" k8s_deployment_service.yaml'
@@ -96,6 +96,6 @@ pipeline {
           sh 'kubectl rollout status deployment/devsecops'
         }
       }
-    }
+    }*/
   }
 }  
