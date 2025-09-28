@@ -72,11 +72,23 @@ pipeline {
       }
     }
 
+    stage('opa-scan docker-file-conf') {
+      steps {
+        sh 'docker run --rm -v \$(pwd):/project openpolicyagent/conftest test --policy docker-conf.rego Dockerfile'
+      }
+    }
+
     stage('Docker Build') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
           sh 'docker build -t abdelrahmanvio/numeric-application:"$GIT_COMMIT" .'
         }
+      }
+    }
+
+    stage('trivy-scan dockerized-image') {
+      steps {
+        sh 'docker run --rm -v $HOME/trivy-cache:/root/.cache/ aquasec/trivy:latest image --severity CRITICAL --exit-code 1 --quiet abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
       }
     }
 
