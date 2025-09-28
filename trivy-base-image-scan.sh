@@ -1,5 +1,9 @@
+#!/bin/bash
+set -e  # exit immediately if a command fails
+
 # Scan all base images in the Dockerfile for vulnerabilities using Trivy
-awk '$1 == "FROM" ? system("trivy image --severity CRITICAL --exit-code 1 --quiet " $2) : 0' Dockerfile
+awk '$1 == "FROM" ? system("docker run --rm aquasec/trivy:latest image my-registry/my-app:tag
+ --severity CRITICAL --exit-code 1 --quiet " $2) : 0' Dockerfile
 
 # The script will exit with a non-zero status if any base image has CRITICAL vulnerabilities
 exit_code=$?
