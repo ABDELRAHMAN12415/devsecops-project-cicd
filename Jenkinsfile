@@ -88,7 +88,7 @@ pipeline {
 
     stage('trivy-scan dockerized-image') {
       steps {
-        sh 'docker run --rm -v $HOME/trivy-cache:/root/.cache/ aquasec/trivy:latest image --severity CRITICAL --exit-code 1 --quiet abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
+        sh 'docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/trivy-cache:/root/.cache/ aquasec/trivy:latest image --severity CRITICAL --exit-code 1 --quiet abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
       }
     }
 
