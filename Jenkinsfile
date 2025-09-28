@@ -74,7 +74,7 @@ pipeline {
 
     stage('opa-scan docker-file-conf') {
       steps {
-        sh 'docker run --rm -v \$(pwd):/project openpolicyagent/conftest test --policy docker-conf.rego Dockerfile'
+        sh 'docker run --rm -v \$(pwd):/project openpolicyagent/conftest:v0.24.0 test --policy docker-conf.rego Dockerfile'
       }
     }
 
