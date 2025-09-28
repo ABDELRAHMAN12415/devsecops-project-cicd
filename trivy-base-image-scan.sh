@@ -3,7 +3,6 @@ awk '$1 == "FROM" ? system("trivy image --severity CRITICAL --exit-code 1 --quie
 
 # The script will exit with a non-zero status if any base image has CRITICAL vulnerabilities
 exit_code=$?
-echo "Exit Code : $exit_code"
 if [[ "${exit_code}" == 1 ]]; then
     echo "Base image scanning failed. Vulnerabilities found"
     exit 1;
