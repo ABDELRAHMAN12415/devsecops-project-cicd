@@ -66,6 +66,12 @@ pipeline {
       }
     }
 
+    stage('trivy-scan base-image') {
+      steps {
+        sh 'bash trivy-base-image-scan.sh'
+      }
+    }
+
     stage('Docker Build') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
