@@ -140,7 +140,7 @@ pipeline {
           publishHTML (target: [
             allowMissing: false,
             keepAll: true,
-            reportDir: '.',
+            reportDir: 'reports',
             reportFiles: 'zap-report.html',
             reportName: 'ZAP-DAST-Report'
           ])
