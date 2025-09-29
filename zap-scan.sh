@@ -2,7 +2,10 @@
 
 PORT=$(kubectl -n default get svc devsecops-svc -o json | jq .spec.ports[].nodePort)
 
-docker run  --rm -v $(pwd):/zap/wrk/:rw   -t zaproxy/zap-stable   zap-api-scan.py     -t http://$applicationURL:$PORT/v3/api-docs     -f openapi     -r zap-report.html
+echo "SERVICE_PORT=$PORT"
+
+docker run  --rm -v $(pwd):/zap/wrk/:rw   -t zaproxy/zap-stable   zap-api-scan.py     -t $applicationURL:$PORT/v3/api-docs     -f openapi     -r zap-report.html
+
 exit_code=$?
 
 echo "Exit Code : $exit_code"
