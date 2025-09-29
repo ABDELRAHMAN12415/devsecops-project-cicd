@@ -120,16 +120,20 @@ pipeline {
         }
       }
     }
-    
+
     stage('smoke-test') {
       steps {
-        sh 'bash smoke-test.sh'
+        withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'bash smoke-test.sh'
+        }
       }
     }
 
-    stage('OWASP ZAP Scan') {
+    stage('OWASP ZAP - DAST') {
       steps {
-        sh 'bash owasp-zap-scan.sh'
+        withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'bash owasp-zap-scan.sh'
+        }
       }
     }
   }
