@@ -99,7 +99,13 @@ pipeline {
         }
       }
     }
-    
+
+    stage('opa-scan deployment-conf') {
+      steps {
+        sh 'docker run --rm -v \$(pwd):/project openpolicyagent/conftest:v0.24.0 test --policy k8s-deployment-security.rego k8s_deployment_service.yaml'
+      }
+    }
+
     /*stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
