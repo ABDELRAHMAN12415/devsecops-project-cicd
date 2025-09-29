@@ -156,21 +156,22 @@ pipeline {
             message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}"
           )
        }
-    }
-    post {
-      failure {
+    
+      post {
+        failure {
           slackSend (
             channel: '#jenkins-devsecops-project',
             color: 'danger',
             message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} failed!"
           )
-      }
-      success {
+        }
+        success {
           slackSend (
             channel: '#jenkins-devsecops-project',
             color: 'good',
             message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} succeeded!"
           )
+        }
       }
     }
   }
