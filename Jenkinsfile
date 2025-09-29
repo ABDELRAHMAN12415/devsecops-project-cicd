@@ -119,12 +119,18 @@ pipeline {
           sh 'kubectl rollout status deployment/devsecops'
         }
       }
-
+    }
+    
     stage('smoke-test') {
       steps {
         sh 'bash smoke-test.sh'
       }
     }
 
+    stage('OWASP ZAP Scan') {
+      steps {
+        sh 'bash owasp-zap-scan.sh'
+      }
+    }
   }
 }  
