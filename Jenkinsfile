@@ -114,6 +114,8 @@ pipeline {
     stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
+          echo 'export KUBECONFIG=$HOME/.kube/config' >> ~/.bashrc
+          source ~/.bashrc
           sh 'sed -i "s#replace#abdelrahmanvio/numeric-application:${GIT_COMMIT}#g" k8s_deployment_service.yaml'
           sh 'kubectl apply -f k8s_deployment_service.yaml'
           sh 'kubectl rollout status deployment/devsecops'
@@ -124,6 +126,12 @@ pipeline {
     stage('smoke-test') {
       steps {
         sh 'bash smoke-test.sh'
+      }
+    }
+
+    stage('owasp-Zap Scan') {
+      steps {
+        sh 'bash zap-scan.sh'
       }
     }
 
