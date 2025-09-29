@@ -57,10 +57,10 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           sh 'mvn sonar:sonar -Dsonar.projectKey=numeric-application'
-        }/*
+        }
         timeout(time: 2, unit: 'MINUTES') {
           waitForQualityGate abortPipeline: true
-        }*/
+        }
       }
     }
 
@@ -145,6 +145,32 @@ pipeline {
             reportName: 'ZAP-DAST-Report'
           ])
         }
+      }
+    }
+
+    stage('Notify Slack') {
+      steps {
+          slackSend (
+            channel: '#jenkins-devsecops-project', 
+            color: '#36a64f', 
+            message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}"
+          )
+       }
+    }
+    post {
+      failure {
+          slackSend (
+            channel: '#jenkins-devsecops-project',
+            color: 'danger',
+            message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} failed!"
+          )
+      }
+      success {
+          slackSend (
+            channel: '#jenkins-devsecops-project',
+            color: 'good',
+            message: "Build ${env.JOB_NAME} #${env.BUILD_NUMBER} succeeded!"
+          )
       }
     }
   }
