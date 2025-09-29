@@ -132,7 +132,17 @@ pipeline {
     stage('OWASP ZAP - DAST') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
-          sh 'bash owasp-zap-scan.sh'
+          sh 'bash zap-scan.sh'
+        }
+      post {
+        always {
+          publishHTML (target: [
+            allowMissing: false,
+            keepAll: true,
+            reportDir: '.',
+            reportFiles: 'zap-report.html',
+            reportName: 'ZAP-DAST-Report'
+          ])
         }
       }
     }
