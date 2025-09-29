@@ -134,6 +134,7 @@ pipeline {
         withKubeConfig([credentialsId: 'kubeconfig']) {
           sh 'bash zap-scan.sh'
         }
+      }
       post {
         always {
           publishHTML (target: [
@@ -147,4 +148,4 @@ pipeline {
       }
     }
   }
-}  
+}
