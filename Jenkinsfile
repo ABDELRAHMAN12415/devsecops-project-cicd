@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     imageName = "abdelrahmanvio/numeric-application:${GIT_COMMIT}"
-    applicationURL="http://13.60.243.99"
+    applicationURL="http://51.20.7.138"
   }
 
   stages {
