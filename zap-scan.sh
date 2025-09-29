@@ -6,7 +6,7 @@ echo "SERVICE_PORT=$PORT"
 echo "APPLICATION_URL=$applicationURL"
 echo " $(pwd) "
 # first run this
-#chmod 777 $(pwd)
+chmod 777 $(pwd)
 #echo $(id -u):$(id -g)
 
 docker run --rm -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -r zap-report.html
