@@ -122,6 +122,7 @@
 				 <failBuildOnCVSS>10</failBuildOnCVSS> <!-- fail the build for CVSS greater than or equal to 10 -->
 			     <format>ALL</format>
 				 <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+				 <suppressionFile>dependency-check-suppression.xml</suppressionFile>
 			    </configuration>
 			   </plugin>
 
