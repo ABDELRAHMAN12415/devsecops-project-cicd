@@ -1,6 +1,11 @@
 pipeline {
   agent any
 
+  environment {
+    imageName = "abdelrahmanvio/numeric-application:${GIT_COMMIT}"
+    applicationURL="http://13.60.243.99"
+  }
+
   stages {
     stage('build') {
       steps {
@@ -78,10 +83,10 @@ pipeline {
       }
     }
 
-    stage('Docker Build') {
+    stage('Docker Build and tag') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
-          sh 'docker build -t abdelrahmanvio/numeric-application:"$GIT_COMMIT" .'
+          sh 'docker build -t ${imageName} .'
         }
       }
     }
@@ -95,7 +100,7 @@ pipeline {
     stage('Docker push') {
       steps {
         withDockerRegistry([credentialsId: 'docker-cred', url: '']) {
-          sh 'docker push abdelrahmanvio/numeric-application:"$GIT_COMMIT"'
+          sh 'docker push ${imageName}'
         }
       }
     }
@@ -106,7 +111,7 @@ pipeline {
       }
     }
 
-    /*stage('Kubernetes Deployment - DEV') {
+    stage('Kubernetes Deployment - DEV') {
       steps {
         withKubeConfig([credentialsId: 'kubeconfig']) {
           sh 'sed -i "s#replace#abdelrahmanvio/numeric-application:${GIT_COMMIT}#g" k8s_deployment_service.yaml'
@@ -114,6 +119,13 @@ pipeline {
           sh 'kubectl rollout status deployment/devsecops'
         }
       }
-    }*/
+    }
+
+    stage('smoke-test') {
+      steps {
+        sh 'bash smoke-test.sh'
+      }
+    }
+
   }
 }  
