@@ -1,49 +1,53 @@
+# Numeric Application – DevSecOps CI/CD Pipeline 🚀🔐
 
-Numeric Application – DevSecOps CI/CD Pipeline 🚀🔐
-📌 Overview
+![untitleddiagram drawio(7)_25e44115](https://github.com/user-attachments/assets/26778b47-594f-464f-a4ba-2dc0799e42bd)
 
-This project is a sample Spring Boot + Node.js numeric application that demonstrates how to implement a complete DevSecOps CI/CD pipeline using Jenkins.
+
+## 📌 Overview
+
+This project is a sample **Spring Boot + Node.js numeric application** that demonstrates how to implement a **complete DevSecOps CI/CD pipeline** using Jenkins.
 The pipeline automates build, test, security scanning, containerization, deployment to Kubernetes, and runtime security testing.
 
-![untitleddiagram drawio(7)_25e44115](https://github.com/user-attachments/assets/eca45232-e9a1-4657-adfa-fc3e3c3586a5)
+---
 
-⚙️ Features
+## ⚙️ Features
 
-Build & Test
+* **Git Pre-Commit Hook: Talisman**
+  
+  * to block secrets/keys from being committed
+ 
+* **Build & Test**
 
-Maven build, unit tests (JUnit), and code coverage (JaCoCo).
+  * Maven build, unit tests (JUnit), and code coverage (JaCoCo).
+  * Mutation testing with PIT for test robustness.
 
-Mutation testing with PIT for test robustness.
+* **Static Security**
 
-Static Security
+  * OWASP Dependency-Check for vulnerable libraries.
+  * SonarQube analysis with quality gates.
+  * OPA (Conftest) for Dockerfile & Kubernetes manifest policies.
 
-OWASP Dependency-Check for vulnerable libraries.
+* **Container Security**
 
-SonarQube analysis with quality gates.
+  * Trivy scan for base image vulnerabilities.
+  * Trivy scan for built Docker images before push.
 
-OPA (Conftest) for Dockerfile & Kubernetes manifest policies.
+* **Continuous Delivery**
 
-Container Security
+  * Docker build, tag, and push to Docker Hub.
+  * Kubernetes deployment using `kubectl`.
+  * Smoke testing to verify application availability.
 
-Trivy scan for base image vulnerabilities.
+* **Dynamic Security**
 
-Trivy scan for built Docker images before push.
+  * OWASP ZAP (DAST) to detect runtime vulnerabilities.
+  * HTML report publishing in Jenkins.
 
-Continuous Delivery
+---
 
-Docker build, tag, and push to Docker Hub.
+## 📂 Project Structure
 
-Kubernetes deployment using kubectl.
-
-Smoke testing to verify application availability.
-
-Dynamic Security
-
-OWASP ZAP (DAST) to detect runtime vulnerabilities.
-
-HTML report publishing in Jenkins.
-
-📂 Project Structure
+```
 devsecops-project/
 ├── src/                           # Application source code
 ├── target/                        # Build outputs
@@ -56,134 +60,112 @@ devsecops-project/
 ├── smoke-test.sh                  # Post-deployment smoke tests
 ├── pom.xml                        # Maven project descriptor
 └── Jenkinsfile                    # CI/CD pipeline definition
+```
 
-🛠️ Prerequisites
+---
 
-Jenkins with plugins:
+## 🛠️ Prerequisites
 
-Pipeline
+* **Jenkins** with plugins:
 
-OWASP Dependency-Check
+  * Pipeline
+  * OWASP Dependency-Check
+  * JUnit
+  * JaCoCo
+  * PIT Mutation Testing
+  * SonarQube
+  * HTML Publisher
+  * Docker & Kubernetes plugins
+* **Tools**
 
-JUnit
+  * Docker & Docker Hub account
+  * Kubernetes cluster (Minikube, EKS, AKS, or GKE)
+  * SonarQube server
+  * Trivy
+  * OWASP ZAP
+  * OPA Conftest
+  * 
 
-JaCoCo
+---
 
-PIT Mutation Testing
+## 🔄 Jenkins Pipeline Stages
 
-SonarQube
+1. **Build** – Maven clean & compile.
+2. **Unit Tests** – Run JUnit tests & collect JaCoCo coverage.
+3. **Dependency Scan** – OWASP Dependency-Check.
+4. **Mutation Testing** – PIT reports.
+5. **Code Quality** – SonarQube analysis.
+6. **Package** – Build JAR artifact.
+7. **Trivy Base Scan** – Check vulnerabilities in base image.
+8. **OPA Dockerfile Scan** – Policy validation on Dockerfile.
+9. **Docker Build & Tag** – Build image tagged with commit SHA.
+10. **Trivy Image Scan** – Vulnerability scan on built image.
+11. **Docker Push** – Push to Docker Hub.
+12. **OPA K8s Scan** – Validate deployment YAML.
+13. **Kubernetes Deploy** – Apply manifest & rollout.
+14. **Smoke Test** – Verify API responses.
+15. **OWASP ZAP DAST** – Run API security scan & publish report.
+16. **Notify** – (Optional) Slack notifications on pipeline result.
 
-HTML Publisher
+---
 
-Docker & Kubernetes plugins
+## 🔒 Git Pre-Commit Hook with Talisman
 
-Tools
+To prevent committing secrets/keys accidentally, **Talisman** is configured as a Git pre-push hook:
 
-Docker & Docker Hub account
+```bash
+# Install Talisman
+curl -L https://github.com/thoughtworks/talisman/releases/latest/download/talisman_linux_amd64 -o talisman
+chmod +x talisman
+sudo mv talisman /usr/local/bin/
 
-Kubernetes cluster (Minikube, EKS, AKS, or GKE)
+# Add as a pre-push hook
+talisman --install
+```
 
-SonarQube server
+Now, before every `git push`, Talisman scans the changes and blocks anything that looks like **secrets, tokens, or credentials**.
 
-Trivy
+To bypass in special cases:
 
-OWASP ZAP
+```bash
+git push --no-verify
+```
 
-OPA Conftest
+> ⚠️ Not recommended unless you’re 100% sure.
 
-🔄 Jenkins Pipeline Stages
+---
 
-Build – Maven clean & compile.
+## 📊 Reports & Results
 
-Unit Tests – Run JUnit tests & collect JaCoCo coverage.
+* **JUnit** → Test results in Jenkins.
+* **JaCoCo** → Code coverage report.
+* **Dependency-Check** → Vulnerable dependencies.
+* **PIT** → Mutation testing results.
+* **SonarQube** → Code quality dashboard.
+* **Trivy** → Vulnerability scan logs.
+* **OPA** → Policy compliance results.
+* **OWASP ZAP** → DAST HTML report (published in Jenkins).
 
-Dependency Scan – OWASP Dependency-Check.
+---
 
-Mutation Testing – PIT reports.
+## 🔐 Security Practices
 
-Code Quality – SonarQube analysis.
+* Fail build on **critical/high vulnerabilities**.
+* Enforce **OPA security policies**.
+* Publish all security reports in Jenkins.
+* Automate scans in every pipeline run.
 
-Package – Build JAR artifact.
+---
 
-Trivy Base Scan – Check vulnerabilities in base image.
+## 📌 Future Enhancements
 
-OPA Dockerfile Scan – Policy validation on Dockerfile.
+* Add **Prometheus + Grafana** for monitoring.
+* Add **Production Deployment** stage
+* Implement **ArgoCD** for GitOps-style deployments.
+* kubernetes security tools
 
-Docker Build & Tag – Build image tagged with commit SHA.
+---
 
-Trivy Image Scan – Vulnerability scan on built image.
-
-Docker Push – Push to Docker Hub.
-
-OPA K8s Scan – Validate deployment YAML.
-
-Kubernetes Deploy – Apply manifest & rollout.
-
-Smoke Test – Verify API responses.
-
-OWASP ZAP DAST – Run API security scan & publish report.
-
-Notify – (Optional) Slack notifications on pipeline result.
-
-🚀 Usage
-Build & Run Locally
-# Compile and package the application
-mvn clean package -DskipTests=true
-
-# Build Docker image
-docker build -t abdelrahmanvio/numeric-application:latest .
-
-# Run locally
-docker run -p 5000:5000 abdelrahmanvio/numeric-application:latest
-
-Deploy on Kubernetes
-# Replace image placeholder with your Docker Hub image
-sed -i "s#replace#abdelrahmanvio/numeric-application:latest#g" k8s_deployment_service.yaml
-
-# Apply manifest
-kubectl apply -f k8s_deployment_service.yaml
-
-# Check status
-kubectl rollout status deployment/devsecops
-
-📊 Reports & Results
-
-JUnit → Test results in Jenkins.
-
-JaCoCo → Code coverage report.
-
-Dependency-Check → Vulnerable dependencies.
-
-PIT → Mutation testing results.
-
-SonarQube → Code quality dashboard.
-
-Trivy → Vulnerability scan logs.
-
-OPA → Policy compliance results.
-
-OWASP ZAP → DAST HTML report (published in Jenkins).
-
-🔐 Security Practices
-
-Fail build on critical/high vulnerabilities.
-
-Enforce OPA security policies.
-
-Publish all security reports in Jenkins.
-
-Automate scans in every pipeline run.
-
-📌 Future Enhancements
-
-Add Prometheus + Grafana for monitoring.
-
-Extend ZAP scans with authenticated tests.
-
-Implement ArgoCD for GitOps-style deployments.
-
-Add SAST (e.g., Semgrep) for deeper static analysis.
-
-👨‍💻 Author
+## 👨‍💻 Author
 
 Abdelrahman Ahmed
